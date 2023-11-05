@@ -44,6 +44,7 @@ com\tfg\restservice\dto\GenreDTO.class
 com\tfg\restservice\dto\SaleDetailDTO.class
 com\tfg\restservice\model\Platform.class
 com\tfg\restservice\dtoconverter\ProviderDTOConverter.class
+com\tfg\restservice\dto\GameGenreDTO.class
 com\tfg\restservice\model\User.class
 com\tfg\restservice\config\MyConfig.class
 com\tfg\restservice\dto\CreateSocialDTO.class
@@ -60,6 +61,7 @@ com\tfg\restservice\model\CreditCard.class
 com\tfg\restservice\repository\PurchaseRepository.class
 com\tfg\restservice\controller\CreditCardController.class
 com\tfg\restservice\model\Social.class
+com\tfg\restservice\dtoconverter\GameGenreDTOConverter.class
 com\tfg\restservice\model\Game.class
 com\tfg\restservice\model\GamePlatform.class
 com\tfg\restservice\dto\PlatformDTO.class

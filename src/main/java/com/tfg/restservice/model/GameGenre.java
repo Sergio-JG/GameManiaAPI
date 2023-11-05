@@ -30,7 +30,7 @@ import lombok.Setter;
 public class GameGenre {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "game_genre_id")
 	private UUID id;
 

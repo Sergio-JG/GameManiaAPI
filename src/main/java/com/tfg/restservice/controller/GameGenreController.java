@@ -40,7 +40,7 @@ public class GameGenreController {
 	 * @return
 	 */
 
-	@GetMapping("/gamegenre")
+	@GetMapping("/gameGenre")
 	public ResponseEntity<Object> obtainAll() {
 
 		List<GameGenre> result = gameGenreRepository.findAll();
@@ -61,7 +61,7 @@ public class GameGenreController {
 	 *
 	 */
 
-	@GetMapping("/gamegenre/{id}")
+	@GetMapping("/gameGenre/{id}")
 	public ResponseEntity<Object> obtainOne(@PathVariable UUID id) {
 
 		Optional<GameGenre> result = gameGenreRepository.findById(id);
@@ -82,7 +82,7 @@ public class GameGenreController {
 	 * @return New GameGenre inserted
 	 */
 
-	@PostMapping("/gamegenre")
+	@PostMapping("/gameGenre")
 
 	public ResponseEntity<Object> newGameGenre(@RequestBody Map<String, UUID> requestBody) {
 
@@ -107,7 +107,7 @@ public class GameGenreController {
 	 * @return
 	 */
 
-	@PutMapping("/gamegenre/{id}")
+	@PutMapping("/gameGenre/{id}")
 	public ResponseEntity<Object> editGameGenre(@RequestBody Map<String, UUID> requestBody, @PathVariable UUID id) {
 
 		Optional<GameGenre> result = gameGenreRepository.findById(id);
@@ -145,7 +145,7 @@ public class GameGenreController {
 	 *
 	 */
 
-	@DeleteMapping("/gamegenre/{id}")
+	@DeleteMapping("/gameGenre/{id}")
 	public ResponseEntity<Object> deleteGameGenre(@PathVariable UUID id) {
 
 		GameGenre gameGenre = gameGenreRepository.findById(id).orElseThrow(() -> new NotFoundException(id));

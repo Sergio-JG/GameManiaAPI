@@ -46,7 +46,7 @@ public class GameController {
 
 		List<GameDTO> dtoList = result.stream().map(gameDTOConverter::convertToDto).toList();
 
-		return ResponseEntity.ok(result);
+		return ResponseEntity.ok(dtoList);
 	}
 
 	/**

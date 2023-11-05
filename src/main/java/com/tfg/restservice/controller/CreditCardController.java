@@ -1,12 +1,9 @@
 package com.tfg.restservice.controller;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.restservice.dto.CreditCardDTO;
-import com.tfg.restservice.dtoconverter.CreditCardDTOConverter;
 import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.CreditCard;
+import com.tfg.restservice.model.User;
 import com.tfg.restservice.repository.CreditCardRepository;
+import com.tfg.restservice.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,11 +28,8 @@ import lombok.RequiredArgsConstructor;
 
 public class CreditCardController {
 
-	@Autowired
-	private CreditCardRepository creditCardRepository;
-
-	@Autowired
-	private CreditCardDTOConverter creditCardDTOConverter;
+	private final CreditCardRepository creditCardRepository;
+	private final UserRepository userRepository;
 
 	/**
 	 * Obtain all CreditCard
@@ -42,18 +37,16 @@ public class CreditCardController {
 	 * @return
 	 */
 
-	@GetMapping("/creditcard")
+	@GetMapping("/creditCard")
 
 	public ResponseEntity<Object> obtainAll() {
 
 		List<CreditCard> result = creditCardRepository.findAll();
 
 		if (result.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data not found");
 		} else {
-			List<CreditCardDTO> dtoList = result.stream().map(creditCardDTOConverter::convertToDto)
-					.collect(Collectors.toList());
-			return ResponseEntity.ok(dtoList);
+			return ResponseEntity.ok(result);
 		}
 	}
 
@@ -65,7 +58,7 @@ public class CreditCardController {
 	 *
 	 */
 
-	@GetMapping("/creditcard/{id}")
+	@GetMapping("/creditCard/{id}")
 	public ResponseEntity<Object> obtainOne(@PathVariable UUID id) {
 
 		Optional<CreditCard> result = creditCardRepository.findById(id);
@@ -74,11 +67,7 @@ public class CreditCardController {
 			NotFoundException exception = new NotFoundException(id);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
 		} else {
-
-			List<CreditCardDTO> dtoList = result.stream().map(creditCardDTOConverter::convertToDto)
-					.collect(Collectors.toList());
-
-			return ResponseEntity.ok(dtoList);
+			return ResponseEntity.ok(result);
 		}
 	}
 
@@ -89,19 +78,21 @@ public class CreditCardController {
 	 * @return New CreditCard inserted
 	 */
 
-	@PostMapping("/creditcard")
-	public ResponseEntity<Object> newCreditCard(@RequestBody CreditCardDTO cc) {
+	@PostMapping("/creditCard")
+	public ResponseEntity<Object> addCreditCard(@RequestBody CreditCardDTO creditCardData) {
 
-		CreditCard cc1 = new CreditCard();
+		CreditCard newCreditCard = new CreditCard();
 
-		cc1.setUser(cc1.getUser());
-		cc1.setCardNumber(cc1.getCardNumber());
-		cc1.setCardHolderName(cc1.getCardHolderName());
-		cc1.setExpirationDate(cc1.getExpirationDate());
-		cc1.setCvv(cc1.getCvv());
-		cc1.setBillingAddress(cc1.getBillingAddress());
+		newCreditCard.setCardNumber(creditCardData.getCardNumber());
+		newCreditCard.setCardHolderName(creditCardData.getCardHolderName());
+		newCreditCard.setExpirationDate(creditCardData.getExpirationDate());
+		newCreditCard.setCvv(creditCardData.getCvv());
+		newCreditCard.setBillingAddress(creditCardData.getBillingAddress());
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(creditCardRepository.save(cc1));
+		User user = userRepository.findById(creditCardData.getUser()).orElse(null);
+		newCreditCard.setUser(user);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(creditCardRepository.save(newCreditCard));
 	}
 
 	/**
@@ -111,8 +102,8 @@ public class CreditCardController {
 	 * @return
 	 */
 
-	@PutMapping("/creditcard/{id}")
-	public ResponseEntity<Object> editCreditCard(@RequestBody CreditCard editar, @PathVariable UUID id) {
+	@PutMapping("/creditCard/{id}")
+	public ResponseEntity<Object> editCreditCard(@RequestBody CreditCardDTO creditCardData, @PathVariable UUID id) {
 
 		Optional<CreditCard> result = creditCardRepository.findById(id);
 
@@ -123,16 +114,19 @@ public class CreditCardController {
 
 		} else {
 
-			CreditCard cc = new CreditCard();
+			CreditCard newCreditCard = new CreditCard();
 
-			cc.setUser(cc.getUser());
-			cc.setCardNumber(cc.getCardNumber());
-			cc.setCardHolderName(cc.getCardHolderName());
+			newCreditCard.setCreditCardId(id);
+			newCreditCard.setCardNumber(creditCardData.getCardNumber());
+			newCreditCard.setCardHolderName(creditCardData.getCardHolderName());
+			newCreditCard.setExpirationDate(creditCardData.getExpirationDate());
+			newCreditCard.setCvv(creditCardData.getCvv());
+			newCreditCard.setBillingAddress(creditCardData.getBillingAddress());
 
-			cc.setExpirationDate(cc.getExpirationDate());
-			cc.setCvv(cc.getCvv());
-			cc.setBillingAddress(cc.getBillingAddress());
-			return ResponseEntity.ok(creditCardRepository.save(cc));
+			User user = userRepository.findById(creditCardData.getUser()).orElse(null);
+			newCreditCard.setUser(user);
+
+			return ResponseEntity.status(HttpStatus.OK).body(creditCardRepository.save(newCreditCard));
 
 		}
 	}
@@ -146,7 +140,7 @@ public class CreditCardController {
 	 *
 	 */
 
-	@DeleteMapping("/creditcard/{id}")
+	@DeleteMapping("/creditCard/{id}")
 	public ResponseEntity<Object> deleteCreditCard(@PathVariable UUID id) {
 
 		CreditCard creditCard = creditCardRepository.findById(id).orElseThrow(() -> new NotFoundException(id));

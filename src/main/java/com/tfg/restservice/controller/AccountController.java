@@ -3,7 +3,6 @@ package com.tfg.restservice.controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.restservice.dto.AccountDTO;
-import com.tfg.restservice.dtoconverter.AccountDTOConverter;
 import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Account;
+import com.tfg.restservice.model.Provider;
 import com.tfg.restservice.repository.AccountRepository;
 import com.tfg.restservice.repository.ProviderRepository;
 
@@ -30,7 +29,6 @@ import lombok.RequiredArgsConstructor;
 public class AccountController {
 
 	private final AccountRepository accountRepository;
-	private final AccountDTOConverter accountDTOConverter;
 	private final ProviderRepository providerRepository;
 
 	/**
@@ -48,10 +46,7 @@ public class AccountController {
 		if (result.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data not found");
 		} else {
-
-			List<AccountDTO> dtoList = result.stream().map(accountDTOConverter::convertToDto)
-					.collect(Collectors.toList());
-			return ResponseEntity.ok(dtoList);
+			return ResponseEntity.ok(result);
 		}
 	}
 
@@ -72,11 +67,7 @@ public class AccountController {
 			NotFoundException exception = new NotFoundException(id);
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
 		} else {
-
-			List<AccountDTO> dtoList = result.stream().map(accountDTOConverter::convertToDto)
-					.collect(Collectors.toList());
-
-			return ResponseEntity.ok(dtoList);
+			return ResponseEntity.ok(result);
 		}
 	}
 
@@ -88,18 +79,21 @@ public class AccountController {
 	 */
 
 	@PostMapping("/account")
-	public ResponseEntity<Object> newAccount(@RequestBody AccountDTO na) {
+	public ResponseEntity<Object> addAccount(@RequestBody AccountDTO accountData) {
 
-		Account na1 = new Account();
+		Account newAccount = new Account();
 
-		na1.setBankName(na.getBankName());
-		na1.setAccountHolderName(na.getAccountHolderName());
-		na1.setAccountNumber(na.getAccountNumber());
-		na1.setBankAddress(na.getBankAddress());
-		na1.setBankRoutingNumber(na.getBankRoutingNumber());
-		na1.setAccountBalance(na.getAccountBalance());
+		newAccount.setBankName(accountData.getBankName());
+		newAccount.setAccountHolderName(accountData.getAccountHolderName());
+		newAccount.setAccountNumber(accountData.getAccountNumber());
+		newAccount.setBankAddress(accountData.getBankAddress());
+		newAccount.setBankRoutingNumber(accountData.getBankRoutingNumber());
+		newAccount.setAccountBalance(accountData.getAccountBalance());
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(accountRepository.save(na1));
+		Provider provider = providerRepository.findById(accountData.getProvider()).orElse(null);
+		newAccount.setProvider(provider);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(accountRepository.save(newAccount));
 	}
 
 	/**
@@ -110,7 +104,7 @@ public class AccountController {
 	 */
 
 	@PutMapping("/account/{id}")
-	public ResponseEntity<Object> editAccount(@RequestBody Account editar, @PathVariable UUID id) {
+	public ResponseEntity<Object> editAccount(@RequestBody AccountDTO accountData, @PathVariable UUID id) {
 
 		Optional<Account> result = accountRepository.findById(id);
 
@@ -121,16 +115,20 @@ public class AccountController {
 
 		} else {
 
-			Account na = new Account();
+			Account newAccount = new Account();
 
-			na.setProvider(na.getProvider());
-			na.setAccountHolderName(na.getAccountHolderName());
-			na.setAccountNumber(na.getAccountNumber());
-			na.setBankName(na.getBankName());
-			na.setBankAddress(na.getBankAddress());
-			na.setBankRoutingNumber(na.getBankRoutingNumber());
+			newAccount.setAccountId(id);
+			newAccount.setBankName(accountData.getBankName());
+			newAccount.setAccountHolderName(accountData.getAccountHolderName());
+			newAccount.setAccountNumber(accountData.getAccountNumber());
+			newAccount.setBankAddress(accountData.getBankAddress());
+			newAccount.setBankRoutingNumber(accountData.getBankRoutingNumber());
+			newAccount.setAccountBalance(accountData.getAccountBalance());
 
-			return ResponseEntity.ok(accountRepository.save(na));
+			Provider provider = providerRepository.findById(accountData.getProvider()).orElse(null);
+			newAccount.setProvider(provider);
+
+			return ResponseEntity.status(HttpStatus.OK).body(accountRepository.save(newAccount));
 
 		}
 	}

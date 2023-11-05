@@ -3,6 +3,7 @@ package com.tfg.restservice.dto;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,8 @@ import lombok.Setter;
 @Setter
 
 public class GameDTO {
+
+	private UUID gameId;
 
 	private String title;
 

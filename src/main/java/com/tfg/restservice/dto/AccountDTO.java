@@ -1,8 +1,7 @@
 package com.tfg.restservice.dto;
 
 import java.math.BigDecimal;
-
-import com.tfg.restservice.model.Provider;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +18,7 @@ import lombok.Setter;
 
 public class AccountDTO {
 
-	private Provider provider;
+	private UUID provider;
 
 	private String bankName;
 

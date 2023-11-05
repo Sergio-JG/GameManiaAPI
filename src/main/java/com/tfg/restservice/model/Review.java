@@ -31,7 +31,7 @@ import lombok.Setter;
 public class Review {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "review_id")
 	private UUID reviewId;
 
@@ -53,17 +53,6 @@ public class Review {
 	@ManyToOne
 	@JoinColumn(name = "game_id")
 	private Game game;
-
-	@Transient
-	private String gameName;
-
-	public String getGameName() {
-		if (game != null) {
-			return game.getTitle();
-		} else {
-			return null;
-		}
-	}
 
 	@Column(name = "score")
 	private int rating;

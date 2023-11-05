@@ -1,8 +1,7 @@
 package com.tfg.restservice.dto;
 
 import java.sql.Date;
-
-import com.tfg.restservice.model.User;
+import java.util.UUID;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +11,11 @@ import lombok.Setter;
 
 public class CreditCardDTO {
 
-	private User user;
-
-	private String cardHolder;
+	private UUID user;
 
 	private String cardNumber;
+
+	private String cardHolderName;
 
 	private Date expirationDate;
 

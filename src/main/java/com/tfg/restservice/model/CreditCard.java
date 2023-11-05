@@ -6,6 +6,7 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -27,7 +28,7 @@ import lombok.Setter;
 public class CreditCard {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "credit_card_id")
 	private UUID creditCardId;
 
@@ -35,7 +36,7 @@ public class CreditCard {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@Column(name = "card_umber")
+	@Column(name = "card_number")
 	private String cardNumber;
 
 	@Column(name = "cardholder_name")

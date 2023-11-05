@@ -5,11 +5,10 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -36,7 +35,7 @@ import lombok.Setter;
 public class Game {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "game_id")
 	private UUID gameId;
 
@@ -67,7 +66,6 @@ public class Game {
 	private List<Genre> genres;
 
 	@OneToMany(mappedBy = "game")
-	@JsonIgnore
 	private List<Review> reviews;
 
 }
