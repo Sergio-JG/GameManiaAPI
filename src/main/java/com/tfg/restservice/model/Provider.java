@@ -3,8 +3,6 @@ package com.tfg.restservice.model;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,11 +45,6 @@ public class Provider {
 	private String email;
 
 	@OneToMany(mappedBy = "provider")
-	@JsonIgnore
 	private List<Account> account;
-
-	@OneToMany(mappedBy = "provider")
-	@JsonIgnore
-	private List<Purchase> purchases;
 
 }

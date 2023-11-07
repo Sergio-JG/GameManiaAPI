@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tfg.restservice.dto.AccountDTO;
 import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Account;
-import com.tfg.restservice.model.Provider;
 import com.tfg.restservice.repository.AccountRepository;
 import com.tfg.restservice.repository.ProviderRepository;
 
@@ -90,9 +89,6 @@ public class AccountController {
 		newAccount.setBankRoutingNumber(accountData.getBankRoutingNumber());
 		newAccount.setAccountBalance(accountData.getAccountBalance());
 
-		Provider provider = providerRepository.findById(accountData.getProvider()).orElse(null);
-		newAccount.setProvider(provider);
-
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountRepository.save(newAccount));
 	}
 
@@ -124,9 +120,6 @@ public class AccountController {
 			newAccount.setBankAddress(accountData.getBankAddress());
 			newAccount.setBankRoutingNumber(accountData.getBankRoutingNumber());
 			newAccount.setAccountBalance(accountData.getAccountBalance());
-
-			Provider provider = providerRepository.findById(accountData.getProvider()).orElse(null);
-			newAccount.setProvider(provider);
 
 			return ResponseEntity.status(HttpStatus.OK).body(accountRepository.save(newAccount));
 

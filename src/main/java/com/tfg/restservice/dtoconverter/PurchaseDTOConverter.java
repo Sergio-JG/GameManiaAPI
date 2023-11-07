@@ -15,13 +15,13 @@ public class PurchaseDTOConverter {
 
 	private final ModelMapper modelMapper;
 
-	public PurchaseDTO convertToDto(Purchase Purchase) {
-		return modelMapper.map(Purchase, PurchaseDTO.class);
+	public PurchaseDTO convertToDto(Purchase purchase) {
+		return modelMapper.map(purchase, PurchaseDTO.class);
 
 	}
 
-	public Purchase convertToEntity(PurchaseDTO PurchaseDTO) {
-		return modelMapper.map(PurchaseDTO, Purchase.class);
+	public Purchase convertToEntity(PurchaseDTO purchaseDTO) {
+		return modelMapper.map(purchaseDTO, Purchase.class);
 	}
 
 }

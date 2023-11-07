@@ -2,6 +2,7 @@ package com.tfg.restservice.dto;
 
 import java.sql.Date;
 import java.util.Set;
+import java.util.UUID;
 
 import com.tfg.restservice.model.SaleDetail;
 
@@ -19,6 +20,8 @@ import lombok.Setter;
 @Setter
 
 public class SaleDTO {
+
+	private UUID saleId;
 
 	private UserDTO customer;
 

@@ -1,5 +1,7 @@
 package com.tfg.restservice.dto;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -15,6 +17,8 @@ import lombok.Setter;
 
 public class GenreDTO {
 
-	private String genreName;
+	private UUID genreId;
+
+	private String name;
 
 }

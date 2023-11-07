@@ -2,8 +2,8 @@ package com.tfg.restservice.dto;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-
-import com.tfg.restservice.model.Provider;
+import java.util.List;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,9 +20,13 @@ import lombok.Setter;
 
 public class PurchaseDTO {
 
-	private Provider provider;
+	private UUID purchaseId;
+
+	private ProviderDTO provider;
 
 	private Date purchaseDate;
+
+	private List<PurchaseDetailDTO> purchaseDetail;
 
 	private BigDecimal totalAmount;
 

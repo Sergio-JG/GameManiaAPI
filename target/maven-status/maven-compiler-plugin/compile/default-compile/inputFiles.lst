@@ -18,7 +18,6 @@ D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\User.j
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\RoleDTOConverter.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\GameGenreRepository.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\GameRepository.java
-D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\CreateGameDTO.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\controller\AccountController.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\Game.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\SaleDTO.java
@@ -38,14 +37,13 @@ D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\ReviewDT
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\Genre.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\Platform.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\GameDTO.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\PurchaseDetailDTO.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\ProviderDTOConverter.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\controller\PurchaseController.java
-D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\CreateCustomerDTO.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\GameGenreDTOConverter.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\GamePlatform.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\controller\GenreController.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\GameDTOConverter.java
-D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\CreateSocialDTO.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\PlatformRepository.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\PurchaseRepository.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\GenreDTOConverter.java

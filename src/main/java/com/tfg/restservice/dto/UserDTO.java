@@ -1,5 +1,7 @@
 package com.tfg.restservice.dto;
 
+import java.util.UUID;
+
 import com.tfg.restservice.model.Social;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +18,8 @@ import lombok.Setter;
 @Setter
 
 public class UserDTO {
+
+	private UUID userId;
 
 	private String firstName;
 

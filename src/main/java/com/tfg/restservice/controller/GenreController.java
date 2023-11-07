@@ -69,9 +69,9 @@ public class GenreController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
 		} else {
 
-			List<GenreDTO> dtoList = result.stream().map(genreDTOConverter::convertToDto).collect(Collectors.toList());
-
-			return ResponseEntity.ok(dtoList);
+			Genre genre = result.get();
+			GenreDTO genreDTO = genreDTOConverter.convertToDto(genre);
+			return ResponseEntity.ok(genreDTO);
 		}
 	}
 
@@ -86,7 +86,7 @@ public class GenreController {
 	public ResponseEntity<Object> newGenre(@RequestBody GenreDTO newG) {
 
 		Genre newGenre = new Genre();
-		newGenre.setGenreName(newG.getGenreName());
+		newGenre.setName(newG.getName());
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(genreRepository.save(newGenre));
 	}
@@ -99,7 +99,7 @@ public class GenreController {
 	 */
 
 	@PutMapping("/genre/{id}")
-	public ResponseEntity<Object> editGenre(@RequestBody Genre edit, @PathVariable UUID id) {
+	public ResponseEntity<Object> editGenre(@RequestBody Genre genreData, @PathVariable UUID id) {
 
 		Optional<Genre> result = genreRepository.findById(id);
 
@@ -110,10 +110,11 @@ public class GenreController {
 
 		} else {
 
-			Genre g = new Genre();
-			g.setGenreName(edit.getGenreName());
+			Genre newGenre = new Genre();
+			newGenre.setGenreId(id);
+			newGenre.setName(genreData.getName());
 
-			return ResponseEntity.ok(genreRepository.save(g));
+			return ResponseEntity.ok(genreRepository.save(newGenre));
 		}
 	}
 

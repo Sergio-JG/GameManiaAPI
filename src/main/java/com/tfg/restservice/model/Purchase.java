@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,8 +46,8 @@ public class Purchase {
 	@JoinColumn(name = "provider_id")
 	private Provider provider;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "purchase")
-	@JsonIgnore
-	private List<PurchaseDetail> purchaseDetails;
+	private List<PurchaseDetail> purchaseDetail;
 
 }

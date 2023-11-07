@@ -17,9 +17,9 @@ public class GameGenreDTOConverter {
 
 	@PostConstruct
 	public void configureMapper() {
-		modelMapper.createTypeMap(GameGenre.class, GameGenreDTO.class)
-				.addMapping(src -> src.getGame().getGameId(), GameGenreDTO::setGameGenreId)
-				.addMapping(src -> src.getGenre().getGenreId(), GameGenreDTO::setGameGenreId);
+		modelMapper.getConfiguration().setAmbiguityIgnored(true); // Ignore ambiguity
+		modelMapper.createTypeMap(GameGenre.class, GameGenreDTO.class).addMapping(src -> src.getId(),
+				GameGenreDTO::setGameGenreId); // Explicitly map the ID field
 	}
 
 	public GameGenreDTO convertToDto(GameGenre gameGenre) {

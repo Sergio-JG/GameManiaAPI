@@ -84,7 +84,7 @@ public class PlatformController {
 
 		Platform newPlatform = new Platform();
 
-		newPlatform.setPlatformName(platformData.getName());
+		newPlatform.setName(platformData.getName());
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(platformRepository.save(newPlatform));
 	}
@@ -112,7 +112,7 @@ public class PlatformController {
 			Platform newPlatform = new Platform();
 
 			newPlatform.setPlatformId(id);
-			newPlatform.setPlatformName(platformData.getName());
+			newPlatform.setName(platformData.getName());
 
 			return ResponseEntity.ok(platformRepository.save(newPlatform));
 

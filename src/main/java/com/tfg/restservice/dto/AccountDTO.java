@@ -18,7 +18,7 @@ import lombok.Setter;
 
 public class AccountDTO {
 
-	private UUID provider;
+	private UUID accountId;
 
 	private String bankName;
 

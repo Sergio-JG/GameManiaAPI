@@ -1,6 +1,7 @@
 package com.tfg.restservice.dto;
 
 import java.util.List;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,8 @@ import lombok.Setter;
 
 public class ProviderDTO {
 
+	private UUID providerId;
+
 	private String name;
 
 	private String address;
@@ -26,7 +29,5 @@ public class ProviderDTO {
 	private String email;
 
 	private List<AccountDTO> account;
-
-	private List<GameDTO> gamesProvided;
 
 }
