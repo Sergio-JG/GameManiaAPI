@@ -31,7 +31,7 @@ public class Genre {
 	@Column(name = "genre_id")
 	private UUID genreId;
 
-	@Column(name = "genre_name")
+	@Column(name = "name")
 	private String name;
 
 }

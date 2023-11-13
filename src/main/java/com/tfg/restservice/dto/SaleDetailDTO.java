@@ -1,5 +1,6 @@
 package com.tfg.restservice.dto;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -19,12 +20,14 @@ public class SaleDetailDTO {
 
 	private UUID saleDetailId;
 
-	private UserDTO customer;
+	private UUID gameId;
 
-	private GameDTO game;
+	private String gameName;
 
 	private int quantity;
 
-	private float subtotal;
+	private BigDecimal unitPrice;
+
+	private BigDecimal subtotal;
 
 }

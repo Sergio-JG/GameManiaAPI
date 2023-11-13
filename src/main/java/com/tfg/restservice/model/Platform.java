@@ -30,7 +30,7 @@ public class Platform {
 	@Column(name = "platform_id")
 	private UUID platformId;
 
-	@Column(name = "platform_name")
+	@Column(name = "name")
 	private String name;
 
 }

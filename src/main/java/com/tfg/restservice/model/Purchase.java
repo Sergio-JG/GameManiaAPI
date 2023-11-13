@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,12 +24,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 @Table(name = "purchase")
+
 @Getter
 @Setter
+
 public class Purchase {
 
 	@Id
@@ -39,15 +44,15 @@ public class Purchase {
 	@Column(name = "purchase_date")
 	private Date purchaseDate;
 
-	@Column(name = "total_amount")
-	private BigDecimal totalAmount;
-
 	@ManyToOne
 	@JoinColumn(name = "provider_id")
 	private Provider provider;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "purchase")
+	@OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<PurchaseDetail> purchaseDetail;
+
+	@Column(name = "total_amount", precision = 10, scale = 2)
+	private BigDecimal totalAmount;
 
 }

@@ -1,6 +1,7 @@
 package com.tfg.restservice.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -13,19 +14,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tfg.restservice.dto.ReviewDTO;
+import com.tfg.restservice.dtoconverter.GameDTOConverter;
+import com.tfg.restservice.dtoconverter.ReviewDTOConverter;
+import com.tfg.restservice.dtoconverter.UserDTOConverter;
 import com.tfg.restservice.error.NotFoundException;
+import com.tfg.restservice.model.Game;
 import com.tfg.restservice.model.Review;
+import com.tfg.restservice.model.User;
+import com.tfg.restservice.repository.GameRepository;
 import com.tfg.restservice.repository.ReviewRepository;
+import com.tfg.restservice.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 
-public class ReviewController  {
+public class ReviewController {
 
 	private final ReviewRepository reviewRepository;
-	// private final ReviewDTOConverter reviewDTOConverter;
+	private final ReviewDTOConverter reviewDTOConverter;
+
+	private final UserRepository userRepository;
+	private final UserDTOConverter userDTOConverter;
+
+	private final GameRepository gameRepository;
+	private final GameDTOConverter gameDTOConverter;
 
 	/**
 	 * Obtenemos todos los reviewos
@@ -33,19 +48,13 @@ public class ReviewController  {
 	 * @return
 	 */
 	@GetMapping("/review")
-	public ResponseEntity<Object> obtenerTodos() {
-
+	public ResponseEntity<Object> obtainAll() {
 		List<Review> result = reviewRepository.findAll();
-
 		if (result.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se ha encontrado datos en el catálogo");
-		} else {
-			// List<ReviewDTO> dtoList =
-			// result.stream().map(reviewDTOConverter::convertToDto)
-			// .collect(Collectors.toList());
-
-			return ResponseEntity.ok(result);
+			return ResponseEntity.notFound().build();
 		}
+		List<ReviewDTO> dtoList = result.stream().map(reviewDTOConverter::convertToDto).toList();
+		return ResponseEntity.ok(dtoList);
 	}
 
 	/**
@@ -55,10 +64,18 @@ public class ReviewController  {
 	 * @return Null si no encuentra el reviewo
 	 */
 	@GetMapping("/review/{id}")
-	public Review obtenerUno(@PathVariable UUID id) {
+	public ResponseEntity<Object> obtainOne(@PathVariable UUID id) {
 
-		return reviewRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+		Optional<Review> result = reviewRepository.findById(id);
 
+		if (result.isEmpty()) {
+			NotFoundException exception = new NotFoundException(id);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+		} else {
+			Review review = result.get();
+			ReviewDTO reviewDTO = reviewDTOConverter.convertToDto(review);
+			return ResponseEntity.ok(reviewDTO);
+		}
 	}
 
 	/**
@@ -69,13 +86,26 @@ public class ReviewController  {
 	 */
 
 	@PostMapping("/review")
-	public ResponseEntity<Review> newReview(@RequestBody Review newG) {
+	public ResponseEntity<Object> newReview(@RequestBody ReviewDTO reviewData) {
 
-		Review newReview = new Review();
-		newReview.setGame(newG.getGame());
-		newReview.setGame(newG.getGame());
+		Review newReview = reviewDTOConverter.convertToEntity(reviewData);
+		Optional<User> reviewUserOptional = userRepository.findById(reviewData.getUserId());
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(reviewRepository.save(newReview));
+		if (reviewUserOptional.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+
+		newReview.setUser(reviewUserOptional.get());
+
+		Game reviewGame = gameRepository.findById(reviewData.getGameId())
+				.orElseThrow(() -> new NotFoundException(reviewData.getGameId()));
+		newReview.setGame(reviewGame);
+
+		reviewRepository.save(newReview);
+
+		ReviewDTO reviewDTO = reviewDTOConverter.convertToDto(newReview);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(reviewDTO);
 	}
 
 	/**
@@ -86,14 +116,14 @@ public class ReviewController  {
 	 */
 
 	@PutMapping("/review/{id}")
-	public Review editarReviewo(@RequestBody Review editar, @PathVariable UUID id) {
+	public ResponseEntity<Object> actualizarReview(@PathVariable UUID id, @RequestBody ReviewDTO reviewDTO) {
+		Review existingReview = reviewRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
-		return reviewRepository.findById(id).map(p -> {
+		existingReview.setReviewId(id);
+		existingReview.setComment(reviewDTO.getComment());
+		reviewRepository.save(existingReview);
 
-			p.setGame(editar.getGame());
-
-			return reviewRepository.save(p);
-		}).orElseThrow(() -> new NotFoundException(id));
+		return ResponseEntity.ok(reviewDTOConverter.convertToDto(existingReview));
 	}
 
 	/**

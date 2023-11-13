@@ -5,8 +5,10 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,10 +36,10 @@ public class Role {
 	@Column(name = "role_id")
 	private UUID roleId;
 
-	@Column(name = "role_name")
-	private String roleName;
+	@Column(name = "name")
+	private String name;
 
-	@OneToMany(mappedBy = "role")
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<User> users;
 

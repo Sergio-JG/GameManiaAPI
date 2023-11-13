@@ -39,13 +39,10 @@ public class GameController {
 	@GetMapping("/game")
 	public ResponseEntity<Object> obtainAll() {
 		List<Game> result = gameRepository.findAll();
-
 		if (result.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-
 		List<GameDTO> dtoList = result.stream().map(gameDTOConverter::convertToDto).toList();
-
 		return ResponseEntity.ok(dtoList);
 	}
 

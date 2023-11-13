@@ -1,7 +1,7 @@
 package com.tfg.restservice.controller;
 
-import java.text.ParseException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 public class SaleDetailController {
 
-	private final SaleDetailRepository SaleDetailService;
+	private final SaleDetailRepository saleDetailService;
 	private final DateService dateService;
 
 	/**
@@ -41,7 +41,7 @@ public class SaleDetailController {
 	@GetMapping("/saledetail")
 	public ResponseEntity<Object> obtenerTodos() {
 
-		List<SaleDetail> result = SaleDetailService.findAll();
+		List<SaleDetail> result = saleDetailService.findAll();
 
 		if (result.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se ha encontrado datos en el catálogo");
@@ -59,7 +59,7 @@ public class SaleDetailController {
 	@GetMapping("/saledetail/{id}")
 	public SaleDetail obtenerUno(@PathVariable UUID id) {
 
-		return SaleDetailService.findById(id).orElseThrow(() -> new NotFoundException(id));
+		return saleDetailService.findById(id).orElseThrow(() -> new NotFoundException(id));
 
 	}
 
@@ -78,18 +78,16 @@ public class SaleDetailController {
 		try {
 			startDate = dateService.fromStringToSQLDate(dates.get("startDate"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Date endDate = null;
 		try {
 			endDate = dateService.fromStringToSQLDate(dates.get("endDate"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		List<SaleDetail> sales = SaleDetailService.findAll();
+		List<SaleDetail> sales = saleDetailService.findAll();
 		return new ResponseEntity<>(sales, HttpStatus.OK);
 	}
 
@@ -105,7 +103,7 @@ public class SaleDetailController {
 
 		SaleDetail newSaleDetail = new SaleDetail();
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(SaleDetailService.save(newSaleDetail));
+		return ResponseEntity.status(HttpStatus.CREATED).body(saleDetailService.save(newSaleDetail));
 	}
 
 	/**
@@ -118,9 +116,9 @@ public class SaleDetailController {
 	@PutMapping("/saledetail/{id}")
 	public SaleDetail editarSaleDetailo(@RequestBody SaleDetailDTO editar, @PathVariable UUID id) {
 
-		return SaleDetailService.findById(id).map(p -> {
+		return saleDetailService.findById(id).map(p -> {
 
-			return SaleDetailService.save(p);
+			return saleDetailService.save(p);
 		}).orElseThrow(() -> new NotFoundException(id));
 	}
 
@@ -135,9 +133,9 @@ public class SaleDetailController {
 
 	@DeleteMapping("/saledetail/{id}")
 	public ResponseEntity<Object> borrarSaleDetailo(@PathVariable UUID id) {
-		SaleDetail sale = SaleDetailService.findById(id).orElseThrow(() -> new NotFoundException(id));
+		SaleDetail sale = saleDetailService.findById(id).orElseThrow(() -> new NotFoundException(id));
 
-		SaleDetailService.delete(sale);
+		saleDetailService.delete(sale);
 		return ResponseEntity.noContent().build();
 	}
 

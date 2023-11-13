@@ -1,10 +1,9 @@
 package com.tfg.restservice.dto;
 
+import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
-
-import com.tfg.restservice.model.SaleDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,12 +22,16 @@ public class SaleDTO {
 
 	private UUID saleId;
 
-	private UserDTO customer;
+	private UUID userId;
+
+	private String firstName;
+
+	private String secondName;
 
 	private Date saleDate;
 
-	private Set<SaleDetail> saleItems;
+	private List<SaleDetailDTO> saleDetail;
 
-	private float totalAmount;
+	private BigDecimal totalAmount;
 
 }

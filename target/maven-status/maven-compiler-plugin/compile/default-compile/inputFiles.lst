@@ -5,6 +5,7 @@ D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\controller\U
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\AccountDTO.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\RoleRepository.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\RoleDTO.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\service\UserService.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\Purchase.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\controller\SocialController.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\SaleDetail.java
@@ -18,6 +19,7 @@ D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\User.j
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\RoleDTOConverter.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\GameGenreRepository.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\GameRepository.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\PurchaseDetailRepository.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\controller\AccountController.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\Game.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\SaleDTO.java
@@ -26,7 +28,10 @@ D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\R
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\config\MyConfig.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\controller\GameGenreController.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\SaleDTOConverter.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\service\PurchaseService.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\service\SaleService.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\SaleDetailDTO.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\service\ProviderService.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\PlatformDTO.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\AccountRepository.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\SocialRepository.java
@@ -68,11 +73,15 @@ D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\Sale.j
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\SocialDTO.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\CreditCardDTOConverter.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\GenreRepository.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\ReviewDTOConverter.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\controller\PlatformController.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\repository\SaleRepository.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\Provider.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\service\GameService.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\service\DateService.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\SaleDetailDTOConverter.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\GenreDTO.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\GameGenre.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\model\CreditCard.java
+D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dtoconverter\PurchaseDetailDTOConverter.java
 D:\dev\proyectos\tfg\gamemaniaapi\src\main\java\com\tfg\restservice\dto\ProviderDTO.java

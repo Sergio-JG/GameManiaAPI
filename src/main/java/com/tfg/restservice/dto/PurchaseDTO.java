@@ -22,7 +22,9 @@ public class PurchaseDTO {
 
 	private UUID purchaseId;
 
-	private ProviderDTO provider;
+	private UUID providerId;
+
+	private String firstName;
 
 	private Date purchaseDate;
 

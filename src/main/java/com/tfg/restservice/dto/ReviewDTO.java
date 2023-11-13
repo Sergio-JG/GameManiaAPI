@@ -1,5 +1,6 @@
 package com.tfg.restservice.dto;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -18,13 +19,9 @@ import lombok.Setter;
 public class ReviewDTO {
 
 	private UUID reviewId;
+	private UUID userId;
+	private UUID gameId;
 
-	private String username;
-
-	private String gameName;
-
-	private int rating;
-
+	private BigDecimal score;
 	private String comment;
-
 }

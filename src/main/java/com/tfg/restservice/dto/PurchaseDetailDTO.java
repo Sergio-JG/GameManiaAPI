@@ -21,11 +21,14 @@ public class PurchaseDetailDTO {
 
 	private UUID purchaseDetailId;
 
-	private GameDTO game;
+	private UUID gameId;
+
+	private String gameName;
 
 	private int quantity;
 
 	private BigDecimal unitPrice;
 
 	private BigDecimal subtotal;
+
 }

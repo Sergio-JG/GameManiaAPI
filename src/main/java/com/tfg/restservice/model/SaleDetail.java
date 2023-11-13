@@ -3,6 +3,8 @@ package com.tfg.restservice.model;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,15 +31,10 @@ public class SaleDetail {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(name = "sale_item_id")
-	private UUID saleItemID;
+	@Column(name = "sale_detail_id")
+	private UUID saleDetailId;
 
-	@Column(name = "quantity")
-	private int quantity;
-
-	@Column(name = "subtotal")
-	private BigDecimal subtotal;
-
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "sale_id")
 	private Sale sale;
@@ -45,4 +42,13 @@ public class SaleDetail {
 	@ManyToOne
 	@JoinColumn(name = "game_id")
 	private Game game;
+
+	@Column(name = "quantity")
+	private int quantity;
+
+	@Column(name = "unit_price")
+	private BigDecimal unitPrice;
+
+	@Column(name = "subtotal")
+	private BigDecimal subtotal;
 }

@@ -24,7 +24,7 @@ public class GameDTO {
 
 	private String title;
 
-	private float price;
+	private BigDecimal price;
 
 	private String description;
 

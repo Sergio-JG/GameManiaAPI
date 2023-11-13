@@ -1,6 +1,9 @@
 package com.tfg.restservice.model;
 
+import java.math.BigDecimal;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -31,33 +33,23 @@ import lombok.Setter;
 public class Review {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "review_id")
 	private UUID reviewId;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
-
-	@Transient
-	private String username;
-
-	public String getUsername() {
-		if (game != null) {
-			return user.getUsername();
-		} else {
-			return null;
-		}
-	}
 
 	@ManyToOne
 	@JoinColumn(name = "game_id")
+	@JsonIgnore
 	private Game game;
 
-	@Column(name = "score")
-	private int rating;
+	@Column(name = "score", precision = 3, scale = 1)
+	private BigDecimal score;
 
-	@Column(name = "comment")
+	@Column(name = "comment", columnDefinition = "TEXT")
 	private String comment;
-
 }
