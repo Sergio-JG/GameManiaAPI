@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 
-public class UserController  {
+public class UserController {
 
 	private final UserRepository userRepository;
 	private final UserDTOConverter userDTOConverter;

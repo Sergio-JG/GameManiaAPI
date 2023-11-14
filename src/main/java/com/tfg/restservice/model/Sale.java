@@ -49,7 +49,7 @@ public class Sale {
 	private Date saleDate;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "sale", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<SaleDetail> saleDetail;
 
 	@Column(name = "total_amount", precision = 10, scale = 2)

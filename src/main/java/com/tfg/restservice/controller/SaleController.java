@@ -58,6 +58,7 @@ public class SaleController {
 
 	@PostMapping("/sale")
 	public ResponseEntity<SaleDTO> addSale(@RequestBody SaleDTO saleDTO) {
+
 		Sale newSale = saleDTOConverter.convertToEntity(saleDTO);
 		newSale.setUser(userService.findById(saleDTO.getUserId()));
 
@@ -72,8 +73,8 @@ public class SaleController {
 		}
 
 		newSale.setTotalAmount(totalAmount);
-
 		newSale = saleService.save(newSale);
+
 		SaleDTO createdSaleDTO = saleDTOConverter.convertToDto(newSale);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdSaleDTO);
 	}

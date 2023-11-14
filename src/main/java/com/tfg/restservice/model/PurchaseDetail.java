@@ -45,9 +45,6 @@ public class PurchaseDetail {
 	@Column(name = "quantity")
 	private int quantity;
 
-	@Column(name = "unit_price")
-	private BigDecimal unitPrice;
-
 	@Column(name = "subtotal")
 	private BigDecimal subtotal;
 

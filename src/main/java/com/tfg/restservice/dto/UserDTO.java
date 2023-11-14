@@ -2,8 +2,6 @@ package com.tfg.restservice.dto;
 
 import java.util.UUID;
 
-import com.tfg.restservice.model.Social;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -11,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -29,7 +28,17 @@ public class UserDTO {
 
 	private String username;
 
+	private String phone;
+
+	private String profilePic;
+
 	private String password;
 
-	private Social social;
+	private UUID socialId;
+
+	private SocialDTO social;
+
+	private RoleDTO role;
+
+	private CreditCardDTO creditCard;
 }

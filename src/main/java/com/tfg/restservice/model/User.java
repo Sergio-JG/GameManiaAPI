@@ -1,9 +1,7 @@
 package com.tfg.restservice.model;
 
-import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -15,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,14 +26,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
-
 @Getter
 @Setter
-
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private UUID userId;
 
@@ -65,20 +60,18 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private Role role;
 
-	@OneToOne(mappedBy = "user")
-	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "social_id")
+	@JsonManagedReference
 	private Social social;
 
-	@OneToOne(mappedBy = "user")
-	@JsonIgnore
-	private CreditCard creditCard;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
-	private List<Review> reviews;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
-	private List<Sale> sales;
-
+	/**
+	 * @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	 * 
+	 * @JsonManagedReference private CreditCard creditCard;**
+	 * @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch =
+	 *                     FetchType.LAZY)
+	 * 
+	 * @JsonManagedReference private List<Review> reviews;
+	 */
 }

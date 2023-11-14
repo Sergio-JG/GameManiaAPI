@@ -41,15 +41,15 @@ public class Purchase {
 	@Column(name = "purchase_id")
 	private UUID purchaseId;
 
-	@Column(name = "purchase_date")
-	private Date purchaseDate;
-
 	@ManyToOne
 	@JoinColumn(name = "provider_id")
 	private Provider provider;
 
+	@Column(name = "purchase_date")
+	private Date purchaseDate;
+
 	@JsonManagedReference
-	@OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "purchase", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<PurchaseDetail> purchaseDetail;
 
 	@Column(name = "total_amount", precision = 10, scale = 2)

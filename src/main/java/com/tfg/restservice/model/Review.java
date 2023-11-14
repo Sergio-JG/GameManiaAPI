@@ -22,20 +22,22 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
-
 @Table(name = "review")
-
 @Getter
 @Setter
-
 public class Review {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "review_id")
 	private UUID reviewId;
+
+	@Column(name = "score", precision = 3, scale = 1)
+	private BigDecimal score;
+
+	@Column(name = "comment", columnDefinition = "TEXT")
+	private String comment;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -46,10 +48,4 @@ public class Review {
 	@JoinColumn(name = "game_id")
 	@JsonIgnore
 	private Game game;
-
-	@Column(name = "score", precision = 3, scale = 1)
-	private BigDecimal score;
-
-	@Column(name = "comment", columnDefinition = "TEXT")
-	private String comment;
 }

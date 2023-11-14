@@ -22,19 +22,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "credit_card")
-
 @Getter
 @Setter
 public class CreditCard {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "credit_card_id")
 	private UUID creditCardId;
-
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User user;
 
 	@Column(name = "card_number")
 	private String cardNumber;
@@ -51,4 +46,7 @@ public class CreditCard {
 	@Column(name = "billing_address")
 	private String billingAddress;
 
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 }
