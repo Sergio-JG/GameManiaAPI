@@ -37,7 +37,6 @@ public class PurchaseDTOConverter {
 		if (purchaseDTO.getPurchaseDetail() != null) {
 			purchase.getPurchaseDetail().forEach(detail -> {
 				detail.setPurchase(purchase);
-
 				Game game = gameRepository.findById(detail.getGame().getGameId()).orElse(null);
 				detail.setGame(game);
 			});

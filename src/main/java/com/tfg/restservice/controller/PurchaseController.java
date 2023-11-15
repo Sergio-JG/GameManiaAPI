@@ -1,6 +1,7 @@
 package com.tfg.restservice.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.restservice.dto.PurchaseDTO;
+import com.tfg.restservice.dto.PurchaseDetailDTO;
 import com.tfg.restservice.dtoconverter.GameDTOConverter;
 import com.tfg.restservice.dtoconverter.ProviderDTOConverter;
 import com.tfg.restservice.dtoconverter.PurchaseDTOConverter;
@@ -62,18 +64,24 @@ public class PurchaseController {
 		newPurchase.setProvider(providerService.findById(purchaseDTO.getProviderId()));
 
 		BigDecimal totalAmount = BigDecimal.ZERO;
+		List<PurchaseDetail> purchaseDetails = new ArrayList<>();
 
-		for (PurchaseDetail detail : newPurchase.getPurchaseDetail()) {
+		for (PurchaseDetailDTO detailDTO : purchaseDTO.getPurchaseDetail()) {
+			PurchaseDetail detail = new PurchaseDetail();
+			detail.setGame(gameService.findById(detailDTO.getGameId()));
+			detail.setQuantity(detailDTO.getQuantity());
+			detail.setSubtotal(detailDTO.getSubtotal());
 			detail.setPurchase(newPurchase);
-			detail.setGame(gameService.findById(detail.getGame().getGameId()));
-			BigDecimal subtotal = detail.getSubtotal().multiply(BigDecimal.valueOf(detail.getQuantity()));
-			detail.setSubtotal(subtotal);
-			totalAmount = totalAmount.add(subtotal);
+
+			purchaseDetails.add(detail);
+			totalAmount = totalAmount.add(detail.getSubtotal());
 		}
 
+		newPurchase.setPurchaseDetail(purchaseDetails);
 		newPurchase.setTotalAmount(totalAmount);
 
 		newPurchase = purchaseService.save(newPurchase);
+
 		PurchaseDTO createdPurchaseDTO = purchaseDTOConverter.convertToDto(newPurchase);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdPurchaseDTO);
 	}

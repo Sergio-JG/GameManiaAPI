@@ -3,6 +3,7 @@ package com.tfg.restservice.controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.restservice.dto.CreditCardDTO;
+import com.tfg.restservice.dtoconverter.CreditCardDTOConverter;
 import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.CreditCard;
 import com.tfg.restservice.model.User;
@@ -30,6 +32,7 @@ public class CreditCardController {
 
 	private final CreditCardRepository creditCardRepository;
 	private final UserRepository userRepository;
+	private final CreditCardDTOConverter creditCardDTOConverter;
 
 	/**
 	 * Obtain all CreditCard
@@ -46,7 +49,9 @@ public class CreditCardController {
 		if (result.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data not found");
 		} else {
-			return ResponseEntity.ok(result);
+			List<CreditCardDTO> dtoList = result.stream().map(creditCardDTOConverter::convertToDto)
+					.collect(Collectors.toList());
+			return ResponseEntity.ok(dtoList);
 		}
 	}
 
@@ -89,7 +94,7 @@ public class CreditCardController {
 		newCreditCard.setCvv(creditCardData.getCvv());
 		newCreditCard.setBillingAddress(creditCardData.getBillingAddress());
 
-		User user = userRepository.findById(creditCardData.getUser()).orElse(null);
+		User user = userRepository.findById(creditCardData.getCreditCardId()).orElse(null);
 		newCreditCard.setUser(user);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(creditCardRepository.save(newCreditCard));
@@ -123,7 +128,7 @@ public class CreditCardController {
 			newCreditCard.setCvv(creditCardData.getCvv());
 			newCreditCard.setBillingAddress(creditCardData.getBillingAddress());
 
-			User user = userRepository.findById(creditCardData.getUser()).orElse(null);
+			User user = userRepository.findById(creditCardData.getCreditCardId()).orElse(null);
 			newCreditCard.setUser(user);
 
 			return ResponseEntity.status(HttpStatus.OK).body(creditCardRepository.save(newCreditCard));

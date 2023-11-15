@@ -11,7 +11,7 @@ import lombok.Setter;
 
 public class CreditCardDTO {
 
-	private UUID user;
+	private UUID creditCardId;
 
 	private String cardNumber;
 

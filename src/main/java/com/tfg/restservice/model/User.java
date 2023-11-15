@@ -1,5 +1,6 @@
 package com.tfg.restservice.model;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -13,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -65,12 +67,14 @@ public class User {
 	@JsonManagedReference
 	private Social social;
 
-	/**
-	 * @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	 * 
-	 * @JsonManagedReference private CreditCard creditCard;**
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	@JsonManagedReference
+	private List<CreditCard> creditCard;
+
+	/*
 	 * @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch =
-	 *                     FetchType.LAZY)
+	 * FetchType.LAZY)
 	 * 
 	 * @JsonManagedReference private List<Review> reviews;
 	 */

@@ -1,5 +1,6 @@
 package com.tfg.restservice.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -35,10 +36,10 @@ public class UserDTO {
 	private String password;
 
 	private UUID socialId;
-
 	private SocialDTO social;
 
+	private UUID roleId;
 	private RoleDTO role;
 
-	private CreditCardDTO creditCard;
+	private List<CreditCardDTO> creditCard;
 }

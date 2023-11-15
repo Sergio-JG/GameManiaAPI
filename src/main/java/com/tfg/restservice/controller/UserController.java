@@ -86,27 +86,22 @@ public class UserController {
 	 */
 
 	@PostMapping("/user")
-	public ResponseEntity<Object> newUser(@RequestBody UserDTO newC) {
+	public ResponseEntity<Object> newUser(@RequestBody UserDTO userData) {
 
-		User newUser = new User();
-
-		newUser.setUsername(newC.getUsername());
+		User user = userDTOConverter.convertToEntity(userData);
 
 		String hashedPassword = "FAIL";
 
 		try {
-			hashedPassword = PasswordHashingService.hashPassword(newC.getPassword());
+			hashedPassword = PasswordHashingService.hashPassword(user.getPassword());
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			String errorMessage = "Error occurred while hashing the password: " + e.getMessage();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
 		}
 
-		newUser.setPassword(hashedPassword);
-		newUser.setFirstName(newC.getFirstName());
-		newUser.setLastName(newC.getLastName());
-		newUser.setEmail(newC.getEmail());
+		user.setPassword(hashedPassword);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(newUser));
+		return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(user));
 	}
 
 	/**
@@ -117,46 +112,26 @@ public class UserController {
 	 */
 
 	@PutMapping("/user/{id}")
-	public ResponseEntity<Object> editUser(@RequestBody User editar, @PathVariable UUID id) {
+	public ResponseEntity<Object> editUser(@RequestBody UserDTO userData, @PathVariable UUID id) {
+		Optional<User> optionalUser = userRepository.findById(id);
 
-		Optional<User> result = userRepository.findById(id);
-
-		if (result.isEmpty()) {
-
-			NotFoundException exception = new NotFoundException(id);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-
-		} else {
-
-			User u = new User();
-
-			u.setUserId(id);
-			u.setFirstName(editar.getFirstName());
-			u.setLastName(editar.getLastName());
-			u.setEmail(editar.getEmail());
-
-			if (editar.getProfilePic() != null && !editar.getProfilePic().isEmpty()) {
-
-				u.setProfilePic(editar.getProfilePic());
-			}
-
-			if (editar.getPassword() != null && !editar.getPassword().isEmpty()) {
-
-				String hashedPassword = "FAIL";
-
-				try {
-					hashedPassword = PasswordHashingService.hashPassword(editar.getPassword());
-				} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-					String errorMessage = "Error occurred while hashing the password: " + e.getMessage();
-					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
-				}
-
-				u.setPassword(hashedPassword);
-			}
-
-			return ResponseEntity.ok(userRepository.save(u));
-
+		if (optionalUser.isEmpty()) {
+			return ResponseEntity.notFound().build();
 		}
+
+		User existingUser = optionalUser.get();
+
+		existingUser.setUsername(userData.getUsername());
+		existingUser.setPassword(userData.getPassword());
+		existingUser.setFirstName(userData.getFirstName());
+		existingUser.setLastName(userData.getLastName());
+		existingUser.setEmail(userData.getEmail());
+		existingUser.setProfilePic(userData.getProfilePic());
+		existingUser.setPhone(userData.getPhone());
+		existingUser.setUserId(id);
+
+		User updatedUser = userRepository.save(existingUser);
+		return ResponseEntity.ok(updatedUser);
 	}
 
 	/**

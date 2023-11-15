@@ -10,4 +10,6 @@ import com.tfg.restservice.model.CreditCard;
 @Repository
 public interface CreditCardRepository extends JpaRepository<CreditCard, UUID> {
 
+	// List<CreditCard> findByUserId(UUID userId);
+
 }
