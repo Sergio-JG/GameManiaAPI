@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.restservice.dto.PurchaseDTO;
 import com.tfg.restservice.dto.PurchaseDetailDTO;
-import com.tfg.restservice.dtoconverter.GameDTOConverter;
-import com.tfg.restservice.dtoconverter.ProviderDTOConverter;
 import com.tfg.restservice.dtoconverter.PurchaseDTOConverter;
 import com.tfg.restservice.model.Purchase;
 import com.tfg.restservice.model.PurchaseDetail;
@@ -36,11 +34,7 @@ public class PurchaseController {
 	private final PurchaseDTOConverter purchaseDTOConverter;
 
 	private final GameService gameService;
-	private final GameDTOConverter gameDTOConverter;
-
 	private final ProviderService providerService;
-	private final ProviderDTOConverter providerDTOConverter;
-
 	@GetMapping("/purchase")
 	public ResponseEntity<List<PurchaseDTO>> obtainAll() {
 		List<Purchase> result = purchaseService.findAll();

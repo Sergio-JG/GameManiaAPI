@@ -9,4 +9,8 @@ public class NotFoundException extends RuntimeException {
 	public NotFoundException(UUID id) {
 		super(" Cannot found resource with id -> " + id);
 	}
+
+	public NotFoundException(String string) {
+		super(" Cannot found resource with id -> " + string);
+	}
 }

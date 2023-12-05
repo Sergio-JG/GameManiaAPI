@@ -38,7 +38,6 @@ public class SaleDTOConverter {
 		if (saleDTO.getSaleDetail() != null) {
 			sale.getSaleDetail().forEach(detail -> {
 				detail.setSale(sale);
-
 				Game game = gameRepository.findById(detail.getGame().getGameId()).orElse(null);
 				detail.setGame(game);
 			});

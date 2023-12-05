@@ -32,6 +32,8 @@ public class GameDTO {
 
 	private int numberOfSales;
 
+	private int stock;
+
 	private BigDecimal totalScore;
 
 	private List<GenreDTO> genres;

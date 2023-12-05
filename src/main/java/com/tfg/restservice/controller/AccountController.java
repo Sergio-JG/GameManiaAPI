@@ -18,7 +18,6 @@ import com.tfg.restservice.dto.AccountDTO;
 import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Account;
 import com.tfg.restservice.repository.AccountRepository;
-import com.tfg.restservice.repository.ProviderRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 public class AccountController {
 
 	private final AccountRepository accountRepository;
-	private final ProviderRepository providerRepository;
 
 	/**
 	 * Obtain all Account
@@ -37,7 +35,6 @@ public class AccountController {
 	 */
 
 	@GetMapping("/account")
-
 	public ResponseEntity<Object> obtainAll() {
 
 		List<Account> result = accountRepository.findAll();

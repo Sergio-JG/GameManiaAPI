@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.restservice.dto.ReviewDTO;
-import com.tfg.restservice.dtoconverter.GameDTOConverter;
 import com.tfg.restservice.dtoconverter.ReviewDTOConverter;
-import com.tfg.restservice.dtoconverter.UserDTOConverter;
 import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Game;
 import com.tfg.restservice.model.Review;
@@ -37,11 +35,7 @@ public class ReviewController {
 	private final ReviewDTOConverter reviewDTOConverter;
 
 	private final UserRepository userRepository;
-	private final UserDTOConverter userDTOConverter;
-
 	private final GameRepository gameRepository;
-	private final GameDTOConverter gameDTOConverter;
-
 	/**
 	 * Obtenemos todos los reviewos
 	 *

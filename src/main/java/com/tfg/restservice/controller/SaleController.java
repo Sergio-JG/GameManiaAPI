@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.restservice.dto.SaleDTO;
-import com.tfg.restservice.dtoconverter.GameDTOConverter;
 import com.tfg.restservice.dtoconverter.SaleDTOConverter;
-import com.tfg.restservice.dtoconverter.UserDTOConverter;
 import com.tfg.restservice.model.Sale;
 import com.tfg.restservice.model.SaleDetail;
 import com.tfg.restservice.service.GameService;
@@ -34,11 +32,7 @@ public class SaleController {
 	private final SaleDTOConverter saleDTOConverter;
 
 	private final GameService gameService;
-	private final GameDTOConverter gameDTOConverter;
-
 	private final UserService userService;
-	private final UserDTOConverter userDTOConverter;
-
 	@GetMapping("/sale")
 	public ResponseEntity<List<SaleDTO>> obtainAll() {
 		List<Sale> result = saleService.findAll();

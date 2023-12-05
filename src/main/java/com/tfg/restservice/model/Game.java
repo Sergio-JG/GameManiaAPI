@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -21,20 +21,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
-
 @Table(name = "game")
-
-@Getter
-@Setter
 
 public class Game {
 
@@ -58,19 +51,23 @@ public class Game {
 	@Column(name = "number_of_sales")
 	private int numberOfSales;
 
+	@Column(name = "stock")
+	private int stock;
+
 	@Column(name = "total_score", precision = 3, scale = 1)
 	private BigDecimal totalScore;
 
-	@ManyToMany
-	@JoinTable(name = "game_platform", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "game_platform", joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "game_id"), inverseJoinColumns = @JoinColumn(name = "platform_id", referencedColumnName = "platform_id"))
+	@JsonBackReference
 	private List<Platform> platforms;
 
-	@ManyToMany
-	@JoinTable(name = "game_genre", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "game_genre", joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "game_id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "genre_id"))
+	@JsonBackReference
 	private List<Genre> genres;
 
-	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonManagedReference
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "game")
 	private List<Review> reviews;
 
 }

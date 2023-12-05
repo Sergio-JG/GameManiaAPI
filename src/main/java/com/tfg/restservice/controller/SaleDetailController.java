@@ -1,6 +1,5 @@
 package com.tfg.restservice.controller;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -74,15 +73,13 @@ public class SaleDetailController {
 	@GetMapping("/saledetail/betweenDates")
 	public ResponseEntity<List<SaleDetail>> getSaleDetailsBetweenDates(@RequestBody Map<String, String> dates) {
 
-		Date startDate = null;
 		try {
-			startDate = dateService.fromStringToSQLDate(dates.get("startDate"));
+			dateService.fromStringToSQLDate(dates.get("startDate"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Date endDate = null;
 		try {
-			endDate = dateService.fromStringToSQLDate(dates.get("endDate"));
+			dateService.fromStringToSQLDate(dates.get("endDate"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

@@ -41,5 +41,9 @@ public class UserDTO {
 	private UUID roleId;
 	private RoleDTO role;
 
+	private UUID addressId;
+	private AddressDTO address;
+
 	private List<CreditCardDTO> creditCard;
+
 }

@@ -67,15 +67,14 @@ public class User {
 	@JsonManagedReference
 	private Social social;
 
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "address_id")
+	@JsonManagedReference
+	private Address address;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@JsonManagedReference
 	private List<CreditCard> creditCard;
 
-	/*
-	 * @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch =
-	 * FetchType.LAZY)
-	 * 
-	 * @JsonManagedReference private List<Review> reviews;
-	 */
 }

@@ -19,6 +19,7 @@ import com.tfg.restservice.dtoconverter.GameDTOConverter;
 import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Game;
 import com.tfg.restservice.repository.GameRepository;
+import com.tfg.restservice.repository.PlatformRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +30,8 @@ public class GameController {
 
 	private final GameRepository gameRepository;
 	private final GameDTOConverter gameDTOConverter;
+
+	private final PlatformRepository platformRepository;
 
 	/**
 	 * Obtain all game
@@ -79,15 +82,7 @@ public class GameController {
 	@PostMapping("/game")
 	public ResponseEntity<Object> addGame(@RequestBody GameDTO gameData) {
 
-		Game newGame = new Game();
-
-		newGame.setTitle(gameData.getTitle());
-		newGame.setPrice(gameData.getPrice());
-		newGame.setDescription(gameData.getDescription());
-		newGame.setReleaseDate(gameData.getReleaseDate());
-		newGame.setNumberOfSales(gameData.getNumberOfSales());
-		newGame.setTotalScore(gameData.getTotalScore());
-
+		Game newGame = gameDTOConverter.convertToEntity(gameData);
 		return ResponseEntity.status(HttpStatus.CREATED).body(gameRepository.save(newGame));
 	}
 
@@ -119,6 +114,7 @@ public class GameController {
 			newGame.setDescription(gameData.getDescription());
 			newGame.setReleaseDate(gameData.getReleaseDate());
 			newGame.setNumberOfSales(gameData.getNumberOfSales());
+			newGame.setStock(gameData.getStock());
 			newGame.setTotalScore(gameData.getTotalScore());
 
 			return ResponseEntity.ok(gameRepository.save(newGame));

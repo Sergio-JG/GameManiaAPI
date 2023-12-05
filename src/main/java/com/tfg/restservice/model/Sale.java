@@ -7,9 +7,9 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,7 +49,7 @@ public class Sale {
 	private Date saleDate;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SaleDetail> saleDetail;
 
 	@Column(name = "total_amount", precision = 10, scale = 2)

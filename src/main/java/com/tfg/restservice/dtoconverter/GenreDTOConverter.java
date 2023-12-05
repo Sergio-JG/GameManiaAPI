@@ -1,5 +1,7 @@
 package com.tfg.restservice.dtoconverter;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +17,13 @@ public class GenreDTOConverter {
 
 	private final ModelMapper modelMapper;
 
-	public GenreDTO convertToDto(Genre customer) {
-		return modelMapper.map(customer, GenreDTO.class);
+	public GenreDTO convertToDto(Genre genre) {
+		return modelMapper.map(genre, GenreDTO.class);
 
 	}
 
-	public Genre convertToEntity(GenreDTO customerDTO) {
-		return modelMapper.map(customerDTO, Genre.class);
+	public Genre convertToEntity(List<GenreDTO> list) {
+		return modelMapper.map(list, Genre.class);
 	}
 
 }
