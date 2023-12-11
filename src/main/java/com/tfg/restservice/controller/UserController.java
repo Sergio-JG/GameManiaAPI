@@ -19,9 +19,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tfg.restservice.dto.CreditCardDTO;
 import com.tfg.restservice.dto.UserDTO;
+import com.tfg.restservice.dtoconverter.AddressDTOConverter;
+import com.tfg.restservice.dtoconverter.CreditCardDTOConverter;
+import com.tfg.restservice.dtoconverter.SocialDTOConverter;
 import com.tfg.restservice.dtoconverter.UserDTOConverter;
 import com.tfg.restservice.error.NotFoundException;
+import com.tfg.restservice.model.CreditCard;
 import com.tfg.restservice.model.User;
 import com.tfg.restservice.repository.RoleRepository;
 import com.tfg.restservice.service.PasswordHashingService;
@@ -37,10 +42,16 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserDTOConverter userDTOConverter;
+	private final SocialDTOConverter socialDTOConverter;
+	private final AddressDTOConverter addressDTOConverter;
+	private final CreditCardDTOConverter creditCardDTOConverter;
+
 	private final UserService userService;
 	private final TokenService tokenService;
+
 	private final RandomUsernameService randomUsernameService;
 	private final PasswordHashingService passwordHashingService;
+
 	private final RoleRepository roleRepository;
 
 	/**
@@ -136,13 +147,25 @@ public class UserController {
 
 		User existingUser = optionalUser.get();
 
-		existingUser.setUsername(userData.getUsername());
-		existingUser.setPassword(passwordHashingService.hashPassword(userData.getPassword()));
 		existingUser.setFirstName(userData.getFirstName());
 		existingUser.setLastName(userData.getLastName());
 		existingUser.setEmail(userData.getEmail());
-		existingUser.setProfilePic(userData.getProfilePic());
+		existingUser.setUsername(userData.getUsername());
 		existingUser.setPhone(userData.getPhone());
+		existingUser.setProfilePic(userData.getProfilePic());
+		existingUser.setPassword(passwordHashingService.hashPassword(userData.getPassword()));
+		existingUser.setSocial(socialDTOConverter.convertToEntity(userData.getSocial()));
+		existingUser.setAddress(addressDTOConverter.convertToEntity(userData.getAddress()));
+
+		List<CreditCardDTO> creditCards = userData.getCreditCard();
+
+		for (CreditCardDTO cardDTO : creditCards) {
+			if (cardDTO != null) {
+				CreditCard card = creditCardDTOConverter.convertToEntity(cardDTO);
+				existingUser.getCreditCard().add(card);
+			}
+		}
+		
 		existingUser.setUserId(id);
 
 		User updatedUser = userService.save(existingUser);

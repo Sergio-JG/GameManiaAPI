@@ -57,6 +57,9 @@ public class Game {
 	@Column(name = "total_score", precision = 3, scale = 1)
 	private BigDecimal totalScore;
 
+	@Column(name = "image")
+	private String image;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "game_platform", joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "game_id"), inverseJoinColumns = @JoinColumn(name = "platform_id", referencedColumnName = "platform_id"))
 	@JsonBackReference

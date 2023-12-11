@@ -36,6 +36,8 @@ public class GameDTO {
 
 	private BigDecimal totalScore;
 
+	private String image;
+
 	private List<GenreDTO> genres;
 
 	private List<PlatformDTO> platforms;
