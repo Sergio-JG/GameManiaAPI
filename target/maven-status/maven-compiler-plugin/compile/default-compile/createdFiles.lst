@@ -27,6 +27,7 @@ com\tfg\restservice\dto\RoleDTO.class
 com\tfg\restservice\repository\UserRepository.class
 com\tfg\restservice\repository\AddressRepository.class
 com\tfg\restservice\repository\GameRepository.class
+com\tfg\restservice\config\MyConfig$CorsConfig.class
 com\tfg\restservice\model\Genre.class
 com\tfg\restservice\model\Review.class
 com\tfg\restservice\repository\RoleRepository.class
@@ -37,7 +38,6 @@ com\tfg\restservice\dtoconverter\SaleDetailDTOConverter.class
 com\tfg\restservice\service\SaleService.class
 com\tfg\restservice\dtoconverter\AccountDTOConverter.class
 com\tfg\restservice\repository\ReviewRepository.class
-com\tfg\restservice\config\CorsConfig.class
 com\tfg\restservice\dtoconverter\CreditCardDTOConverter.class
 com\tfg\restservice\repository\AccountRepository.class
 com\tfg\restservice\controller\PlatformController.class

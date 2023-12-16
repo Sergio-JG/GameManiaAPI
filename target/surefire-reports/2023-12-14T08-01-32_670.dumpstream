@@ -1,5 +1,0 @@
-# Created at 2023-12-14T08:01:32.772
-Boot Manifest-JAR contains absolute paths in classpath 'd:\dev\proyectos\tfg\gameManiaAPI\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-
