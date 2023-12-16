@@ -19,7 +19,6 @@ import com.tfg.restservice.dtoconverter.GameDTOConverter;
 import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Game;
 import com.tfg.restservice.repository.GameRepository;
-import com.tfg.restservice.repository.PlatformRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,8 +29,6 @@ public class GameController {
 
 	private final GameRepository gameRepository;
 	private final GameDTOConverter gameDTOConverter;
-
-	private final PlatformRepository platformRepository;
 
 	/**
 	 * Obtain all game
@@ -83,6 +80,7 @@ public class GameController {
 	public ResponseEntity<Object> addGame(@RequestBody GameDTO gameData) {
 
 		Game newGame = gameDTOConverter.convertToEntity(gameData);
+		newGame.setImage("default.jpg");
 		return ResponseEntity.status(HttpStatus.CREATED).body(gameRepository.save(newGame));
 	}
 

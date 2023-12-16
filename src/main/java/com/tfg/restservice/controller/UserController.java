@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -139,6 +140,32 @@ public class UserController {
 	@PutMapping("/user/{id}")
 	public ResponseEntity<Object> editUser(@RequestBody UserDTO userData, @PathVariable UUID id)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
+
+		Optional<User> optionalUser = Optional.of(userService.findById(id));
+		User existingUser = optionalUser.get();
+
+		existingUser.setFirstName(userData.getFirstName());
+		existingUser.setLastName(userData.getLastName());
+		existingUser.setEmail(userData.getEmail());
+		existingUser.setUsername(userData.getUsername());
+		existingUser.setPhone(userData.getPhone());
+		existingUser.setProfilePic(userData.getProfilePic());
+
+		if (userData.getPassword() != null) {
+			existingUser.setPassword(userData.getPassword());
+		}
+
+		existingUser.setSocial(socialDTOConverter.convertToEntity(userData.getSocial()));
+		existingUser.setAddress(addressDTOConverter.convertToEntity(userData.getAddress()));
+		existingUser.setUserId(id);
+
+		User updatedUser = userService.save(existingUser);
+		return ResponseEntity.ok(updatedUser);
+	}
+
+	@PatchMapping("/user/{id}")
+	public ResponseEntity<Object> patchUser(@RequestBody UserDTO userData, @PathVariable UUID id)
+			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		Optional<User> optionalUser = Optional.of(userService.findById(id));
 
 		if (optionalUser.isEmpty()) {
@@ -153,7 +180,7 @@ public class UserController {
 		existingUser.setUsername(userData.getUsername());
 		existingUser.setPhone(userData.getPhone());
 		existingUser.setProfilePic(userData.getProfilePic());
-		existingUser.setPassword(passwordHashingService.hashPassword(userData.getPassword()));
+
 		existingUser.setSocial(socialDTOConverter.convertToEntity(userData.getSocial()));
 		existingUser.setAddress(addressDTOConverter.convertToEntity(userData.getAddress()));
 
@@ -165,7 +192,7 @@ public class UserController {
 				existingUser.getCreditCard().add(card);
 			}
 		}
-		
+
 		existingUser.setUserId(id);
 
 		User updatedUser = userService.save(existingUser);

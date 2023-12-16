@@ -26,6 +26,10 @@ public class SaleService {
 		return saleRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 	}
 
+	public List<Sale> findByUserUserId(UUID userId) {
+		return saleRepository.findByUserUserId(userId);
+	}
+
 	public List<Sale> findAll() {
 		return saleRepository.findAll();
 	}
@@ -44,5 +48,4 @@ public class SaleService {
 					.body("Error deleting sale: " + e.getMessage());
 		}
 	}
-
 }

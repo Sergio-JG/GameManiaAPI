@@ -33,6 +33,7 @@ public class SaleController {
 
 	private final GameService gameService;
 	private final UserService userService;
+
 	@GetMapping("/sale")
 	public ResponseEntity<List<SaleDTO>> obtainAll() {
 		List<Sale> result = saleService.findAll();
@@ -48,6 +49,16 @@ public class SaleController {
 		Sale sale = saleService.findById(id);
 		SaleDTO saleDTO = saleDTOConverter.convertToDto(sale);
 		return ResponseEntity.ok(saleDTO);
+	}
+
+	@GetMapping("/sale/byUser/{userId}")
+	public ResponseEntity<List<SaleDTO>> getSalesByUserId(@PathVariable UUID userId) {
+		List<Sale> result = saleService.findByUserUserId(userId);
+		if (result.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		List<SaleDTO> dtoList = result.stream().map(saleDTOConverter::convertToDto).toList();
+		return ResponseEntity.ok(dtoList);
 	}
 
 	@PostMapping("/sale")

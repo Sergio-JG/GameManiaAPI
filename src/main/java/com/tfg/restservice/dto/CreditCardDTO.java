@@ -23,4 +23,6 @@ public class CreditCardDTO {
 
 	private String billingAddress;
 
+	private UUID userId;
+
 }
