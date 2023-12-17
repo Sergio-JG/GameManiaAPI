@@ -223,7 +223,7 @@ public class UserController {
 		String email = loginRequest.get("email");
 		String password = loginRequest.get("password");
 
-		if (password == "adminpass") {
+		if (password.equals("adminpass")) {
 
 			User user = userService.findByEmail(email);
 			UUID userId = user.getUserId();
