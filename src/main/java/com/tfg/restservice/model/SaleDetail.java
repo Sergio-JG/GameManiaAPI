@@ -3,6 +3,8 @@ package com.tfg.restservice.model;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -32,6 +34,7 @@ public class SaleDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "sale_detail_id")
+	@NonNull
 	private UUID saleDetailId;
 
 	@JsonBackReference

@@ -3,6 +3,8 @@ package com.tfg.restservice.model;
 import java.sql.Date;
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -33,6 +35,7 @@ public class CreditCard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "credit_card_id")
+	@NonNull
 	private UUID creditCardId;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

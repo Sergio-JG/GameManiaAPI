@@ -3,6 +3,8 @@ package com.tfg.restservice.model;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -31,6 +33,7 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "review_id")
+	@NonNull
 	private UUID reviewId;
 
 	@Column(name = "score", precision = 3, scale = 1)

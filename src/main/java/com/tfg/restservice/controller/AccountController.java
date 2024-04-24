@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,7 +56,7 @@ public class AccountController {
 	 */
 
 	@GetMapping("/account/{id}")
-	public ResponseEntity<Object> obtainOne(@PathVariable UUID id) {
+	public ResponseEntity<Object> obtainOne(@PathVariable @NonNull UUID id) {
 
 		Optional<Account> result = accountRepository.findById(id);
 
@@ -97,7 +98,7 @@ public class AccountController {
 	 */
 
 	@PutMapping("/account/{id}")
-	public ResponseEntity<Object> editAccount(@RequestBody AccountDTO accountData, @PathVariable UUID id) {
+	public ResponseEntity<Object> editAccount(@RequestBody AccountDTO accountData, @PathVariable @NonNull UUID id) {
 
 		Optional<Account> result = accountRepository.findById(id);
 
@@ -133,7 +134,7 @@ public class AccountController {
 	 */
 
 	@DeleteMapping("/account/{id}")
-	public ResponseEntity<Object> deleteAccount(@PathVariable UUID id) {
+	public ResponseEntity<Object> deleteAccount(@PathVariable @NonNull UUID id) {
 
 		Account account = accountRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 		accountRepository.delete(account);

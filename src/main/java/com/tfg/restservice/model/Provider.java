@@ -3,6 +3,8 @@ package com.tfg.restservice.model;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +34,7 @@ public class Provider {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "provider_id")
+	@NonNull
 	private UUID providerId;
 
 	@Column(name = "name")

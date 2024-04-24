@@ -20,6 +20,7 @@ import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Social;
 import com.tfg.restservice.repository.SocialRepository;
 
+import io.micrometer.common.lang.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -101,7 +102,7 @@ public class SocialController {
 	 */
 
 	@PutMapping("/social/{id}")
-	public ResponseEntity<Object> updateSocial(@RequestBody SocialDTO socialData, @PathVariable UUID id) {
+	public ResponseEntity<Object> updateSocial(@RequestBody SocialDTO socialData, @PathVariable @NonNull UUID id) {
 
 		Optional<Social> result = socialRepository.findById(id);
 

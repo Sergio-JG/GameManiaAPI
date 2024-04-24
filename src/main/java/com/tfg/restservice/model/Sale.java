@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -39,6 +41,7 @@ public class Sale {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "sale_id")
+	@NonNull
 	private UUID saleId;
 
 	@ManyToOne

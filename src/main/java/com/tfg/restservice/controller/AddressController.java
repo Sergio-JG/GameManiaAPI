@@ -23,6 +23,7 @@ import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Address;
 import com.tfg.restservice.service.AddressService;
 
+import io.micrometer.common.lang.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -110,7 +111,7 @@ public class AddressController {
 	 */
 
 	@PutMapping("/address/{id}")
-	public ResponseEntity<Object> editAddress(@RequestBody AddressDTO addressData, @PathVariable UUID id)
+	public ResponseEntity<Object> editAddress(@RequestBody AddressDTO addressData, @PathVariable @NonNull UUID id)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		Optional<Address> optionalAddress = Optional.of(addressService.findById(id));
 

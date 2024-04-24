@@ -3,6 +3,8 @@ package com.tfg.restservice.model;
 
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -36,6 +38,7 @@ public class Social {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "social_id")
+	@NonNull
 	private UUID socialId;
 
 	@OneToOne(mappedBy = "social", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

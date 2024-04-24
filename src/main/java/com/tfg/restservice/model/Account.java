@@ -3,6 +3,8 @@ package com.tfg.restservice.model;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,7 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "account_id")
+	@NonNull
 	private UUID accountId;
 
 	@ManyToOne

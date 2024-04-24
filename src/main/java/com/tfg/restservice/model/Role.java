@@ -2,6 +2,8 @@ package com.tfg.restservice.model;
 
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "role_id")
+	@NonNull
 	private UUID roleId;
 
 	@Column(name = "name")

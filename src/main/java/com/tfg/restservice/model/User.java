@@ -3,6 +3,8 @@ package com.tfg.restservice.model;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -35,6 +37,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
+	@NonNull
 	private UUID userId;
 
 	@Column(name = "username")

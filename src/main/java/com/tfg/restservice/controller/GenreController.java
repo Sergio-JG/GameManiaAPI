@@ -21,6 +21,7 @@ import com.tfg.restservice.error.NotFoundException;
 import com.tfg.restservice.model.Genre;
 import com.tfg.restservice.repository.GenreRepository;
 
+import io.micrometer.common.lang.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -60,7 +61,7 @@ public class GenreController {
 	 */
 
 	@GetMapping("/genre/{id}")
-	public ResponseEntity<Object> obtainOne(@PathVariable UUID id) {
+	public ResponseEntity<Object> obtainOne(@PathVariable @NonNull UUID id) {
 
 		Optional<Genre> result = genreRepository.findById(id);
 
@@ -99,7 +100,7 @@ public class GenreController {
 	 */
 
 	@PutMapping("/genre/{id}")
-	public ResponseEntity<Object> editGenre(@RequestBody Genre genreData, @PathVariable UUID id) {
+	public ResponseEntity<Object> editGenre(@RequestBody Genre genreData, @PathVariable @NonNull UUID id) {
 
 		Optional<Genre> result = genreRepository.findById(id);
 
@@ -128,7 +129,7 @@ public class GenreController {
 	 */
 
 	@DeleteMapping("/genre/{id}")
-	public ResponseEntity<Object> deleteGenre(@PathVariable UUID id) {
+	public ResponseEntity<Object> deleteGenre(@PathVariable @NonNull UUID id) {
 
 		Genre genre = genreRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 		genreRepository.delete(genre);

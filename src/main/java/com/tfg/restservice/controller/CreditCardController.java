@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,8 +65,7 @@ public class CreditCardController {
 	 */
 
 	@GetMapping("/creditCard/{id}")
-	public ResponseEntity<Object> obtainOne(@PathVariable UUID id) {
-
+	public ResponseEntity<Object> obtainOne(@PathVariable @NonNull UUID id) {
 		Optional<CreditCard> result = creditCardRepository.findById(id);
 
 		if (result.isEmpty()) {
@@ -114,7 +114,8 @@ public class CreditCardController {
 	 */
 
 	@PutMapping("/creditCard/{id}")
-	public ResponseEntity<Object> editCreditCard(@RequestBody CreditCardDTO creditCardData, @PathVariable UUID id) {
+	public ResponseEntity<Object> editCreditCard(@RequestBody CreditCardDTO creditCardData,
+			@PathVariable @NonNull UUID id) {
 
 		Optional<CreditCard> result = creditCardRepository.findById(id);
 
@@ -152,7 +153,7 @@ public class CreditCardController {
 	 */
 
 	@DeleteMapping("/creditCard/{id}")
-	public ResponseEntity<Object> deleteCreditCard(@PathVariable UUID id) {
+	public ResponseEntity<Object> deleteCreditCard(@PathVariable @NonNull UUID id) {
 
 		CreditCard creditCard = creditCardRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 		creditCardRepository.delete(creditCard);

@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.lang.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
@@ -34,6 +36,7 @@ public class Game {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "game_id")
+	@NonNull
 	private UUID gameId;
 
 	@Column(name = "title", nullable = false)
