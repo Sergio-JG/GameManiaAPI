@@ -15,7 +15,8 @@ import java.sql.Statement;
 public class RestServiceApplication {
 
 	public static void main(String[] args) {
-		createDatabase();
+		System.out.println("A");
+		// createDatabase();
 		SpringApplication.run(RestServiceApplication.class, args);
 	}
 
