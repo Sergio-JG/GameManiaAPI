@@ -48,6 +48,9 @@ public class Game {
 	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
 
+	@Column(name = "discount")
+	private int discount;
+
 	@Column(name = "release_date")
 	private Date releaseDate;
 

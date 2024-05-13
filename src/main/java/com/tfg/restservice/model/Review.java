@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.lang.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,6 +47,16 @@ public class Review {
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
 	private User user;
+
+	@JsonProperty("username")
+	public String getUsername() {
+		return user != null ? user.getUsername() : null;
+	}
+
+	@JsonProperty("profilePic")
+	public String getProfilePic() {
+		return user != null ? user.getProfilePic() : null;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "game_id")

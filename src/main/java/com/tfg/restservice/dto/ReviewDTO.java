@@ -19,7 +19,11 @@ import lombok.Setter;
 public class ReviewDTO {
 
 	private UUID reviewId;
+
 	private UUID userId;
+	private String username;
+	private String profilePic;
+
 	private UUID gameId;
 
 	private BigDecimal score;

@@ -34,6 +34,8 @@ public class GameDTO {
 
 	private int stock;
 
+	private int discount;
+
 	private BigDecimal totalScore;
 
 	private String image;
