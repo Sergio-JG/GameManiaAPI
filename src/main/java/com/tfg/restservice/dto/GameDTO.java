@@ -26,6 +26,8 @@ public class GameDTO {
 
 	private BigDecimal price;
 
+	private BigDecimal discountedPrice;
+
 	private String description;
 
 	private Date releaseDate;

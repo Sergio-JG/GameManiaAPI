@@ -45,11 +45,14 @@ public class Game {
 	@Column(name = "price", nullable = false, precision = 10, scale = 2)
 	private BigDecimal price;
 
-	@Column(name = "description", columnDefinition = "TEXT")
-	private String description;
+	@Column(name = "discountedPrice", nullable = false, precision = 10, scale = 2)
+	private BigDecimal discountedPrice;
 
 	@Column(name = "discount")
 	private int discount;
+
+	@Column(name = "description", columnDefinition = "TEXT")
+	private String description;
 
 	@Column(name = "release_date")
 	private Date releaseDate;
